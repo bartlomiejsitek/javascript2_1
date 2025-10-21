@@ -17,6 +17,29 @@
   cw1.addEventListener("click", function() {
     answer.textContent = "Loading…";
 
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(data => {
+        const posts = data;
+
+        const listItems = posts.map(post => {
+          return `<li><strong>${post.title}</strong><br>${post.body}</li>`;
+        });
+
+        const html = `<ul>${listItems.join('')}</ul>`;
+        answer.innerHTML = html;
+      })
+      .catch(error => {
+        console.error(error);
+        answer.innerHTML = "Błąd podczas pobierania postów.";
+      });
+  });
+
+  cw2.addEventListener("click", function() {
+    answer.textContent = "Loading…";
+
     fetch('https://jsonplaceholder.typicode.com/posts/1', {
       method: 'GET'
     })
@@ -30,10 +53,6 @@
         answer.innerHTML = "Błąd podczas pobierania posta.";
       });
   });
-
-  cw2.addEventListener("click", function() {
-    //TODO
-  })
 
   cw3.addEventListener("click", function() {
     //TODO
