@@ -17,23 +17,17 @@
   cw1.addEventListener("click", function() {
     answer.textContent = "Loading…";
 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch('https://jsonplaceholder.typicode.com/posts/1', {
       method: 'GET'
     })
       .then(response => response.json())
-      .then(data => {
-        const posts = data;
-
-        const listItems = posts.map(post => {
-          return `<li><strong>${post.title}</strong><br>${post.body}</li>`;
-        });
-
-        const html = `<ul>${listItems.join('')}</ul>`;
+      .then(post => {
+        const html = `<h3>${post.title}</h3><p>${post.body}</p>`;
         answer.innerHTML = html;
       })
       .catch(error => {
         console.error(error);
-        answer.innerHTML = "Błąd podczas pobierania postów.";
+        answer.innerHTML = "Błąd podczas pobierania posta.";
       });
   });
 
